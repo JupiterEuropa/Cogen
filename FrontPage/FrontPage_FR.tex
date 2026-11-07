@@ -19,7 +19,6 @@
 % Ressources attendues:
 % - FrontPage/tahoma.ttf et FrontPage/tahomabd.ttf
 % - Le PDF de fond (voir \FrontPageBackgroundPdf)
-% - Le logo entreprise (voir \FrontPageCompanyLogo)
 
 
 % =====================
@@ -32,30 +31,14 @@
 \FrontPageDebugfalse
 
 % Titre (diplôme)
-\newcommand{\FrontPageTitle}{Titre centré}
+\newcommand{\FrontPageTitle}{Banc d'essai cogénération}
 
-% Titre central (note)
-\newcommand{\FrontPageTitleNote}{%
-  Il faut respecter le titre definitif au point,
-à la virgule et à la majuscule PRES
-(titre exact qui paraîtra sur le diplôme)
-}
+% Noms
+\newcommand{\FrontPageStudentName}{Julien DELHEZ\\Martin MICHEL\\Nicolas DECUYPER}
 
-% Noms / date
-\newcommand{\FrontPageStudentName}{Prénom NOM}
-\newcommand{\FrontPageDefenceDate}{Date}
-
-% Choix de finalité : mettre à true pour A, à false pour B
-\newif\ifFrontPageFinalityA
-% \FrontPageFinalityAfalse
-\FrontPageFinalityAtrue
-
-% Mentors / entreprise
-\newcommand{\FrontPageGrammeMentorName}{Prénom NOM}
-\newcommand{\FrontPageGrammeMentorPost}{Fonction}
-\newcommand{\FrontPageEnterpriseMentorName}{Prénom NOM}
-\newcommand{\FrontPageEnterpriseMentorPost}{Fonction}
-\newcommand{\FrontPageCompanyName}{Nom}
+% Chargé de cours et responsable du laboratoire
+\newcommand{\FrontPageLecturerName}{Didier MARÉCHAL}
+\newcommand{\FrontPageLabManagerName}{Jonathan BECKERS}
 
 % =============================
 % Constantes (à modifier rarement)
@@ -66,40 +49,22 @@
 \newcommand{\FrontPageFontPath}{FrontPage/}
 \newcommand{\FrontPageFontUpright}{tahoma.ttf}
 \newcommand{\FrontPageFontBold}{tahomabd.ttf}
-\newcommand{\FrontPageCompanyLogo}{FrontPage/company_logo.jpg}
 
 % Bloc haut
-\newcommand{\FrontPageHeaderMain}{Travail de Fin d'Études}
-\newcommand{\FrontPageHeaderSubtitle}{En vue de l'obtention du grade de}
-\newcommand{\FrontPageHeaderDegree}{Master en Sciences de l'Ingénieur Industriel}
-\newcommand{\FrontPageHeaderFinalityA}{Industrie}
-\newcommand{\FrontPageHeaderFinalityB}{Génie Énergétique Durable}
+\newcommand{\FrontPageHeaderMain}{Laboratoire HVAC}
 
 % Libellés
-\newcommand{\FrontPagePresentedBy}{Mémoire présenté par}
-\newcommand{\FrontPageDefenceLabel}{Défense publique le}
-\newcommand{\FrontPageGrammeMentorLabel}{Tuteur Gramme}
-\newcommand{\FrontPageEnterpriseMentorLabel}{Tuteur entreprise}
-\newcommand{\FrontPageCompanyLabel}{Société}
+\newcommand{\FrontPagePresentedBy}{Etudiants}
+\newcommand{\FrontPageLecturerLabel}{Chargé de cours}
+\newcommand{\FrontPageLabManagerLabel}{Responsable du laboratoire}
 
-% Finalité : résout le texte affiché selon le choix A/B
-\newcommand{\FrontPageSelectedFinality}{%
-  \ifFrontPageFinalityA
-    \FrontPageHeaderFinalityA
-  \else
-    \FrontPageHeaderFinalityB
-  \fi
-}
-
-% Mentors : toujours afficher les deux (Gramme + entreprise)
+% Encadrement
 \newcommand{\FrontPageMentorsBlock}{%
-  {\bfseries\fontsize{10}{12}\selectfont \FrontPageGrammeMentorLabel}\par
-  {\fontsize{10}{12}\selectfont \FrontPageGrammeMentorName}\par
-  {\fontsize{10}{12}\selectfont \FrontPageGrammeMentorPost}\par
+  {\bfseries\fontsize{10}{12}\selectfont \FrontPageLecturerLabel}\par
+  {\fontsize{10}{12}\selectfont \FrontPageLecturerName}\par
   \vspace{0.8cm}
-  {\bfseries\fontsize{10}{12}\selectfont \FrontPageEnterpriseMentorLabel}\par
-  {\fontsize{10}{12}\selectfont \FrontPageEnterpriseMentorName}\par
-  {\fontsize{10}{12}\selectfont \FrontPageEnterpriseMentorPost}\par
+  {\bfseries\fontsize{10}{12}\selectfont \FrontPageLabManagerLabel}\par
+  {\fontsize{10}{12}\selectfont \FrontPageLabManagerName}\par
 }
 
 % Mise en page (valeurs de position/taille)
@@ -111,11 +76,7 @@
 \newcommand{\FrontPageBottomLeftXShift}{3.0cm}
 \newcommand{\FrontPageBottomLeftYShift}{4.2cm}
 \newcommand{\FrontPageBottomRightXShift}{10.5cm}
-\newcommand{\FrontPageBottomRightYShiftMentors}{6cm}
-\newcommand{\FrontPageBottomRightYShiftLogo}{4.2cm}
-
-\newcommand{\FrontPageCompanyLogoW}{3.2cm}
-\newcommand{\FrontPageCompanyLogoH}{1.6cm}
+\newcommand{\FrontPageBottomRightYShiftMentors}{4.2cm}
 
 \begin{titlepage}
 \thispagestyle{empty}
@@ -135,10 +96,6 @@
   \node[align=center, text width=0.70\paperwidth] at ([yshift=-8cm]current page.north) {%
   {\setstretch{1}% Interligne simple
     {\fontsize{18}{20}\selectfont \FrontPageHeaderMain}\par
-    \vspace{0.35cm}
-    {\fontsize{10}{10}\selectfont \FrontPageHeaderSubtitle}\par
-    {\bfseries\fontsize{10}{10}\selectfont \FrontPageHeaderDegree}\par
-    {\fontsize{10}{10}\selectfont Finalité : \textbf{\FrontPageSelectedFinality}}\par
   }
   };
 
@@ -158,46 +115,25 @@
       \centering
       \setlength{\parskip}{0pt}%
       {\bfseries\fontsize{24}{30}\selectfont \FrontPageTitle}\par
-      \vspace{0.45cm}
-      {\bfseries\fontsize{8}{12}\selectfont
-        \FrontPageTitleNote
-      }\par
     }%
   };
 
   % Debug: point d'ancrage de la boîte titre (décommente si besoin)
   % \fill[red] (TitleBoxPos) circle (2pt);
 
-  % Bas gauche : présenté par / défense / date
+  % Bas gauche : étudiants
   \node[anchor=south west, align=left, text width=0.46\paperwidth] at ([xshift=\FrontPageBottomLeftXShift,yshift=\FrontPageBottomLeftYShift]current page.south west) {%
     {\fontsize{10}{12}\selectfont \FrontPagePresentedBy}\par
     \vspace{0.10cm}
     {\bfseries\fontsize{10}{12}\selectfont \FrontPageStudentName}\par
-    \vspace{0.55cm}
-    {\setstretch{0.92}%Pour diminuer l'interligne  
-      {\fontsize{10}{12}\selectfont \FrontPageDefenceLabel}\par
-      {\bfseries\fontsize{10}{12}\selectfont \FrontPageDefenceDate}\par
-    }
   };
 
-  % Bas droit : mentors + entreprise + logo entreprise
+  % Bas droit : tuteur
   \node[anchor=south west, align=left, text width=0.40\paperwidth] at ([xshift=\FrontPageBottomRightXShift,yshift=\FrontPageBottomRightYShiftMentors]current page.south west) {%
     {\setstretch{0.92}%Pour diminuer l'interligne
       \FrontPageMentorsBlock
-      \vspace{0.4cm}
-      {\bfseries\fontsize{10}{12}\selectfont \FrontPageCompanyLabel}\par
-      {\fontsize{10}{12}\selectfont \FrontPageCompanyName}\par
     }%
   };
-
-  % Boîte (frontières) de taille fixe, logo centré et redimensionné pour rentrer dedans.
-  \node[anchor=south west, logobox, inner sep=0pt, minimum width=\FrontPageCompanyLogoW, minimum height=\FrontPageCompanyLogoH]
-    at ([xshift=\FrontPageBottomRightXShift,yshift=\FrontPageBottomRightYShiftLogo]current page.south west) {%
-      \includegraphics[width=\FrontPageCompanyLogoW,height=\FrontPageCompanyLogoH,keepaspectratio]{\FrontPageCompanyLogo}%
-    };
-
-  %Debug, point d'encrage du logo entreprise
-  % \fill[red] ([xshift=10.5cm,yshift=4.4cm]current page.south west) circle (2pt);
 
 
 \end{tikzpicture}

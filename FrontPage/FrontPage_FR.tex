@@ -1,0 +1,206 @@
+% --- Page de garde (contenu du document) ---
+%
+% =====================
+% Prérequis (important)
+% =====================
+% Ce fichier est inclus depuis Rapport.tex (donc après \begin{document}).
+% => Ne PAS mettre de \usepackage ici.
+%
+% Moteur requis (à cause de \fontspec et des polices TTF):
+% - XeLaTeX ou LuaLaTeX
+%
+% Packages à charger dans le préambule (ex: package.tex):
+% - \usepackage{fontspec}   % \fontspec
+% - \usepackage{graphicx}   % \includegraphics
+% - \usepackage{tikz}       % overlay + placement
+%   \usetikzlibrary{calc}   % ([xshift=...,yshift=...])
+% - \usepackage{setspace}   % \setstretch
+%
+% Ressources attendues:
+% - FrontPage/tahoma.ttf et FrontPage/tahomabd.ttf
+% - Le PDF de fond (voir \FrontPageBackgroundPdf)
+% - Le logo entreprise (voir \FrontPageCompanyLogo)
+
+
+% =====================
+% Variables (à modifier)
+% =====================
+
+% Debug : mettre à true pour afficher les cadres TikZ.
+\newif\ifFrontPageDebug
+% \FrontPageDebugtrue
+\FrontPageDebugfalse
+
+% Titre (diplôme)
+\newcommand{\FrontPageTitle}{Titre centré}
+
+% Titre central (note)
+\newcommand{\FrontPageTitleNote}{%
+  Il faut respecter le titre definitif au point,
+à la virgule et à la majuscule PRES
+(titre exact qui paraîtra sur le diplôme)
+}
+
+% Noms / date
+\newcommand{\FrontPageStudentName}{Prénom NOM}
+\newcommand{\FrontPageDefenceDate}{Date}
+
+% Choix de finalité : mettre à true pour A, à false pour B
+\newif\ifFrontPageFinalityA
+% \FrontPageFinalityAfalse
+\FrontPageFinalityAtrue
+
+% Mentors / entreprise
+\newcommand{\FrontPageGrammeMentorName}{Prénom NOM}
+\newcommand{\FrontPageGrammeMentorPost}{Fonction}
+\newcommand{\FrontPageEnterpriseMentorName}{Prénom NOM}
+\newcommand{\FrontPageEnterpriseMentorPost}{Fonction}
+\newcommand{\FrontPageCompanyName}{Nom}
+
+% =============================
+% Constantes (à modifier rarement)
+% =============================
+
+% Ressources
+\newcommand{\FrontPageBackgroundPdf}{FrontPage/FrontPage_FR.pdf}
+\newcommand{\FrontPageFontPath}{FrontPage/}
+\newcommand{\FrontPageFontUpright}{tahoma.ttf}
+\newcommand{\FrontPageFontBold}{tahomabd.ttf}
+\newcommand{\FrontPageCompanyLogo}{FrontPage/company_logo.jpg}
+
+% Bloc haut
+\newcommand{\FrontPageHeaderMain}{Travail de Fin d'Études}
+\newcommand{\FrontPageHeaderSubtitle}{En vue de l'obtention du grade de}
+\newcommand{\FrontPageHeaderDegree}{Master en Sciences de l'Ingénieur Industriel}
+\newcommand{\FrontPageHeaderFinalityA}{Industrie}
+\newcommand{\FrontPageHeaderFinalityB}{Génie Énergétique Durable}
+
+% Libellés
+\newcommand{\FrontPagePresentedBy}{Mémoire présenté par}
+\newcommand{\FrontPageDefenceLabel}{Défense publique le}
+\newcommand{\FrontPageGrammeMentorLabel}{Tuteur Gramme}
+\newcommand{\FrontPageEnterpriseMentorLabel}{Tuteur entreprise}
+\newcommand{\FrontPageCompanyLabel}{Société}
+
+% Finalité : résout le texte affiché selon le choix A/B
+\newcommand{\FrontPageSelectedFinality}{%
+  \ifFrontPageFinalityA
+    \FrontPageHeaderFinalityA
+  \else
+    \FrontPageHeaderFinalityB
+  \fi
+}
+
+% Mentors : toujours afficher les deux (Gramme + entreprise)
+\newcommand{\FrontPageMentorsBlock}{%
+  {\bfseries\fontsize{10}{12}\selectfont \FrontPageGrammeMentorLabel}\par
+  {\fontsize{10}{12}\selectfont \FrontPageGrammeMentorName}\par
+  {\fontsize{10}{12}\selectfont \FrontPageGrammeMentorPost}\par
+  \vspace{0.8cm}
+  {\bfseries\fontsize{10}{12}\selectfont \FrontPageEnterpriseMentorLabel}\par
+  {\fontsize{10}{12}\selectfont \FrontPageEnterpriseMentorName}\par
+  {\fontsize{10}{12}\selectfont \FrontPageEnterpriseMentorPost}\par
+}
+
+% Mise en page (valeurs de position/taille)
+\newcommand{\FrontPageTitleBoxW}{0.7\paperwidth}
+\newcommand{\FrontPageTitleBoxH}{6.5cm}
+\newcommand{\FrontPageTitleBoxXShift}{3.4cm}
+\newcommand{\FrontPageTitleBoxYShift}{-11.5cm}
+
+\newcommand{\FrontPageBottomLeftXShift}{3.0cm}
+\newcommand{\FrontPageBottomLeftYShift}{4.2cm}
+\newcommand{\FrontPageBottomRightXShift}{10.5cm}
+\newcommand{\FrontPageBottomRightYShiftMentors}{6cm}
+\newcommand{\FrontPageBottomRightYShiftLogo}{4.2cm}
+
+\newcommand{\FrontPageCompanyLogoW}{3.2cm}
+\newcommand{\FrontPageCompanyLogoH}{1.6cm}
+
+\begin{titlepage}
+\thispagestyle{empty}
+
+% Police Tahoma (nécessite XeLaTeX/LuaLaTeX)
+{\fontspec{tahoma}[Path = \FrontPageFontPath,
+  UprightFont = \FrontPageFontUpright,
+  BoldFont = \FrontPageFontBold]\selectfont
+
+\begin{tikzpicture}[remember picture,overlay]
+
+  % Fond (inclut logo HELMo + formes + bandeau bas + logo "Campus de l'Ourthe")
+  \node[anchor=north west,inner sep=0pt] at (current page.north west)
+    {\includegraphics[width=\paperwidth,height=\paperheight]{\FrontPageBackgroundPdf}};
+
+  % Bloc haut : titre + diplôme
+  \node[align=center, text width=0.70\paperwidth] at ([yshift=-8cm]current page.north) {%
+  {\setstretch{1}% Interligne simple
+    {\fontsize{18}{20}\selectfont \FrontPageHeaderMain}\par
+    \vspace{0.35cm}
+    {\fontsize{10}{10}\selectfont \FrontPageHeaderSubtitle}\par
+    {\bfseries\fontsize{10}{10}\selectfont \FrontPageHeaderDegree}\par
+    {\fontsize{10}{10}\selectfont Finalité : \textbf{\FrontPageSelectedFinality}}\par
+  }
+  };
+
+  % Debug: affiche les rectangles des boîtes (logo, titre, etc.)
+  \ifFrontPageDebug
+    \tikzset{logobox/.style={draw=red,dashed,line width=0.8pt, inner sep=0pt}}
+  \else
+    \tikzset{logobox/.style={draw=none, inner sep=0pt}}
+  \fi
+
+  % Position de la boîte titre (NON centrée sur la page).
+  \coordinate (TitleBoxPos) at ([xshift=\FrontPageTitleBoxXShift,yshift=\FrontPageTitleBoxYShift]current page.north west);
+
+  % Zone centrale : titre (texte centré DANS une boîte fixe)
+  \node[anchor=north west, logobox] at (TitleBoxPos) {%
+    \parbox[c][\FrontPageTitleBoxH][c]{\FrontPageTitleBoxW}{%
+      \centering
+      \setlength{\parskip}{0pt}%
+      {\bfseries\fontsize{24}{30}\selectfont \FrontPageTitle}\par
+      \vspace{0.45cm}
+      {\bfseries\fontsize{8}{12}\selectfont
+        \FrontPageTitleNote
+      }\par
+    }%
+  };
+
+  % Debug: point d'ancrage de la boîte titre (décommente si besoin)
+  % \fill[red] (TitleBoxPos) circle (2pt);
+
+  % Bas gauche : présenté par / défense / date
+  \node[anchor=south west, align=left, text width=0.46\paperwidth] at ([xshift=\FrontPageBottomLeftXShift,yshift=\FrontPageBottomLeftYShift]current page.south west) {%
+    {\fontsize{10}{12}\selectfont \FrontPagePresentedBy}\par
+    \vspace{0.10cm}
+    {\bfseries\fontsize{10}{12}\selectfont \FrontPageStudentName}\par
+    \vspace{0.55cm}
+    {\setstretch{0.92}%Pour diminuer l'interligne  
+      {\fontsize{10}{12}\selectfont \FrontPageDefenceLabel}\par
+      {\bfseries\fontsize{10}{12}\selectfont \FrontPageDefenceDate}\par
+    }
+  };
+
+  % Bas droit : mentors + entreprise + logo entreprise
+  \node[anchor=south west, align=left, text width=0.40\paperwidth] at ([xshift=\FrontPageBottomRightXShift,yshift=\FrontPageBottomRightYShiftMentors]current page.south west) {%
+    {\setstretch{0.92}%Pour diminuer l'interligne
+      \FrontPageMentorsBlock
+      \vspace{0.4cm}
+      {\bfseries\fontsize{10}{12}\selectfont \FrontPageCompanyLabel}\par
+      {\fontsize{10}{12}\selectfont \FrontPageCompanyName}\par
+    }%
+  };
+
+  % Boîte (frontières) de taille fixe, logo centré et redimensionné pour rentrer dedans.
+  \node[anchor=south west, logobox, inner sep=0pt, minimum width=\FrontPageCompanyLogoW, minimum height=\FrontPageCompanyLogoH]
+    at ([xshift=\FrontPageBottomRightXShift,yshift=\FrontPageBottomRightYShiftLogo]current page.south west) {%
+      \includegraphics[width=\FrontPageCompanyLogoW,height=\FrontPageCompanyLogoH,keepaspectratio]{\FrontPageCompanyLogo}%
+    };
+
+  %Debug, point d'encrage du logo entreprise
+  % \fill[red] ([xshift=10.5cm,yshift=4.4cm]current page.south west) circle (2pt);
+
+
+\end{tikzpicture}
+} % fin Tahoma
+
+\end{titlepage}

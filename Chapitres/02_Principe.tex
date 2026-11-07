@@ -1,9 +1,39 @@
 \section{Principe de fonctionnement}
 \label{sec:principe}
 
-% Principe de la cogénération (électricité + chaleur).
+La cogénération étudiée est une installation qui produit deux formes d'énergie, électrique et thermique, à partir d'un seul moteur thermique fonctionnant au gaz.
+
+\subsection{Valorisation des pertes du moteur}
+\label{subsec:valorisation}
+
+Le rendement d'un moteur thermique est d'environ 30\,\%~: près de 70\,\% de l'énergie du combustible est donc perdue, principalement sous forme de chaleur évacuée par le circuit de refroidissement et par les gaz d'échappement. Dans une production d'électricité classique, cette chaleur est simplement rejetée dans l'atmosphère.
+
+La cogénération la récupère pour chauffer de l'eau. Le rendement global de l'installation s'exprime comme le rapport entre l'énergie utile produite (électrique et thermique) et l'énergie du combustible consommé~:
+\begin{equation}
+  \eta_{\mathrm{global}} = \frac{P_{\mathrm{el}} + P_{\mathrm{th}}}{P_{\mathrm{gaz}}}
+\end{equation}
+où $P_{\mathrm{el}}$ est la puissance électrique, $P_{\mathrm{th}}$ la puissance thermique récupérée et $P_{\mathrm{gaz}}$ la puissance calorifique du gaz consommé.
+Grâce à cette récupération, on augmente le rendement global de l'installation, qui peut atteindre environ 80\,\%~\cite{picbleu}.
+\subsection{Fonctionnement de l'installation}
+\label{subsec:fonctionnement}
+
+Le fonctionnement de l'installation, représenté à la figure~\ref{fig:schema-general}, se décompose en deux chaînes de conversion issues d'un même moteur.
+
+\paragraph{Chaîne électrique.} Le gaz brûlé dans le moteur (repère~10) produit une énergie mécanique de rotation qui entraîne une génératrice synchrone (repère~9). L'électricité produite passe par l'électronique de commande (repères~7 et~8), puis par la boîte de raccordement et ses protections (repères~4 et~5) avant d'être injectée sur le réseau électrique du bâtiment, où elle alimente les charges (repère~6).
+
+\paragraph{Chaîne thermique.} Le moteur est refroidi par un fluide caloporteur. La chaleur de ce fluide, additionnée à celle des gaz d'échappement (repère~11), est transférée à l'eau du circuit de chauffage par un échangeur à plaques (repère~12). Cette eau chauffée est envoyée dans la cuve (repère~14), d'où elle alimente le réseau de chauffage ou de production d'eau chaude (repères~16 à~18). Le fluide de refroidissement du moteur, qui n'a pas cédé toute sa chaleur, est évacué par un radiateur assisté d'un ventilateur (repères~13 et~19) afin de revenir au moteur à une température suffisamment basse.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{Images/schema_general.jpg}
+  \caption{Schéma général de fonctionnement de l'installation. Source~: \emph{MCHP Service Manual draft}, document fourni dans le cadre du cours~\cite{mchp}}
+  \label{fig:schema-general}
+\end{figure}
 
 \subsection{Utilisation}
 \label{subsec:utilisation}
 
-% Cas d'usage, dimensionnement, fonctionnement en continu.
+
+La cogénération est conçue pour fonctionner le plus longtemps possible sans interruption, car c'est à son régime nominal que son rendement est le meilleur. Or elle s'arrête lorsque la température de la cuve atteint 60\,°C. Il est donc préférable de bien connaître les besoins en énergie du réseau à alimenter afin de dimensionner correctement l'installation.
+
+Enfin, même si l'apport en électricité est utile, une cogénération est généralement dimensionnée sur la demande en puissance calorifique du circuit de chauffage. Elle alimente alors un circuit de chauffage qui est, en temps normal, également alimenté par une pompe à chaleur ou une chaudière.

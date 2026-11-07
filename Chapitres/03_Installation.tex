@@ -1,13 +1,97 @@
 \section{Description de l'installation}
 \label{sec:installation}
 
-% Vue d'ensemble de la cogénération du laboratoire.
+L'installation étudiée est une unité de micro-cogénération AISIN (groupe Toyota), modèle GECC60A2NR, alimentée au gaz naturel. Elle est présentée à la figure~\ref{fig:vue-ensemble} et ses principales caractéristiques sont reprises dans le tableau~\ref{tab:caracteristiques}. Le schéma général de la figure~\ref{fig:schema-general} (page~\pageref{fig:schema-general}) permet de situer chaque élément cité dans ce chapitre par son repère.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[height=0.55\textheight]{Images/vue_ensemble.jpg}
+  \caption{Vue d'ensemble de la cogénération~: (1)~moteur thermique alimenté en gaz naturel, (2)~circuit de refroidissement à eau, (3)~tableau de commande électronique, (4)~organes du moteur. Source~: document \emph{Descriptions des éléments de la machine}, fourni dans le cadre du cours~\cite{desc}}
+  \label{fig:vue-ensemble}
+\end{figure}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Caractéristiques de la cogénération (source~: \cite{mchp})}
+  \label{tab:caracteristiques}
+  \begin{tabular}{lr}
+    \hline
+    Grandeur & Valeur \\
+    \hline
+    Puissance électrique nominale & 6,0\,kW \\
+    Puissance thermique récupérée & 11,7\,kW \\
+    Puissance du gaz consommé & 20,8\,kW \\
+    Rendement électrique & 28,8\,\% \\
+    Rendement de récupération de chaleur & 56,2\,\% \\
+    Rendement global & 85,0\,\% \\
+    Eau chaude (entrée $\rightarrow$ sortie) & 60\,°C $\rightarrow$ 65\,°C \\
+    Débit d'eau chaude & 34,1\,L/min \\
+    Dimensions (L\,×\,P\,×\,H) & 1100\,×\,660\,×\,1500\,mm \\
+    Masse & 465\,kg \\
+    \hline
+  \end{tabular}
+\end{table}
+
+Le rendement global annoncé par le constructeur (85\,\%) est légèrement supérieur à la valeur d'environ 80\,\% citée de façon générale pour la cogénération (section~\ref{subsec:valorisation}). Ces valeurs correspondent aux conditions de référence du constructeur (pression de 100\,kPa, température ambiante de 25\,°C, humidité relative de 30\,\%)~\cite{mchp}.
 
 \subsection{Production d'électricité}
 \label{subsec:prod-elec}
 
+\paragraph{Moteur.} Le moteur (repère~10) est un moteur à gaz naturel à quatre temps, trois cylindres verticaux, à soupapes en tête (OHV) et d'une cylindrée de 952\,cm\textsuperscript{3}. Il fonctionne en mélange pauvre, ce qui limite les émissions d'oxydes d'azote, et tourne entre 1\,600 et 1\,800\,tr/min. L'allumage est assuré par un allumeur numérique et trois bobines d'allumage (une par cylindre), et le démarrage par un démarreur électrique à courant continu~\cite{mchp}.
+
+\paragraph{Générateur.} Le moteur entraîne un générateur synchrone triphasé à aimants permanents et à 16~pôles, de type MG-6 (repère~9), de puissance nominale 6,4\,kW. Sa fréquence, proportionnelle au régime du moteur, vaut 240\,Hz à 1\,800\,tr/min (8~paires de pôles) alors que le réseau est à 50\,Hz~: il ne peut donc pas être raccordé directement au réseau et passe par l'onduleur.
+
+\paragraph{Onduleur.} La tension produite est mise en forme par l'onduleur, situé avec la commande électronique dans l'unité, en quatre étapes~\cite{mchp}~:
+\begin{enumerate}
+  \item le générateur fournit une tension triphasée de 230\,V à 240\,Hz~;
+  \item un redresseur la convertit en tension continue de 390\,V~;
+  \item des transistors IGBT la convertissent en tension alternative monophasée de 202\,V à 50\,Hz, l'onduleur fonctionnant par modulation de largeur d'impulsion (MLI, \emph{PWM})~;
+  \item l'onduleur délivre enfin une tension monophasée à trois fils (101\,V et 202\,V), envoyée vers la charge comme une alimentation du secteur.
+\end{enumerate}
+Ces tensions sont celles du manuel du constructeur, conçu pour le réseau japonais~; elles correspondent à la plaque signalétique de l'unité (sortie de 100 et 200\,V). Le réseau belge étant à 230\,V et 50\,Hz, la sortie de l'unité n'est pas directement compatible avec lui. Un transformateur est repéré « Transfo » sur les photos du cours~\cite{desc}~; son rôle exact dans l'adaptation à notre réseau reste à confirmer.
+Un relais de protection d'interconnexion, intégré à l'onduleur, déconnecte la cogénération du réseau en cas d'anomalie~\cite{mchp}. Des protections (disjoncteurs) assurent en outre la liaison avec le réseau du bâtiment, qui alimente les charges. Notons que l'installation n'est pas prévue pour fonctionner en cas de coupure du réseau~\cite{mchp}.
+
+\paragraph{Commande.} La face avant de l'unité regroupe le panneau de commande, le panneau de contrôle de l'onduleur, un compteur d'heures de fonctionnement, un interrupteur marche/arrêt, un arrêt d'urgence et deux protections (disjoncteurs ou fusibles, figure~\ref{fig:vue-commande}). Le générateur, quant à lui, est visible à la figure~\ref{fig:vue-generatrice}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[height=0.5\textheight]{Images/vue_commande.jpg}
+  \caption{Tableau de commande électronique~: (1)~panneau de commande, (2)~panneau de contrôle de l'onduleur, (3) et (4)~fusibles (disjoncteurs), (5)~compteur d'heures, (6)~interrupteur marche/arrêt. Source~: document \emph{Descriptions des éléments de la machine}, fourni dans le cadre du cours~\cite{desc}}
+  \label{fig:vue-commande}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[height=0.5\textheight]{Images/vue_generatrice.jpg}
+  \caption{Vue du générateur~: (1)~ventilateur, (2)~bobines d'allumage, (3)~génératrice. Source~: document \emph{Descriptions des éléments de la machine} (où le repère~2 est annoté «~injection électronique~?~»), fourni dans le cadre du cours~\cite{desc}}
+\label{fig:vue-generatrice}
+\end{figure}
+
 \subsection{Production de chaleur}
 \label{subsec:prod-chaleur}
 
-\subsection{P\&ID}
-\label{subsec:pid}
+La chaleur est récupérée à deux endroits~: dans le liquide de refroidissement du moteur et dans les gaz d'échappement. Ces deux sources sont rassemblées dans un même circuit de liquide de refroidissement, qui cède ensuite sa chaleur à l'eau du circuit de chauffage.
+
+\paragraph{Circuit de refroidissement du moteur.} Une pompe fait circuler le liquide dans l'échangeur des gaz d'échappement (repère~11), puis dans le moteur. La double thermovalve oriente ensuite ce liquide en fonction de sa température~\cite{mchp}~:
+\begin{itemize}
+  \item en dessous de 55\,°C, il passe par un circuit de contournement (\emph{bypass}) et retourne directement vers la pompe, ce qui permet au moteur de monter rapidement en température~;
+  \item entre 55\,°C et 68\,°C, il traverse l'échangeur à plaques eau\,--\,eau (repère~12) où il cède sa chaleur à l'eau du circuit de chauffage~;
+  \item au-dessus de 68\,°C, il traverse l'échangeur à plaques puis le radiateur (repère~13), refroidi par le ventilateur (repère~19), afin d'évacuer l'excédent de chaleur.
+\end{itemize}
+Le circuit comprend également un réservoir de liquide de refroidissement, qui joue le rôle de vase d'expansion et sert au remplissage (figure~\ref{fig:vue-refroidissement}).
+
+\paragraph{Échangeur des gaz d'échappement.} Placé sur le collecteur d'échappement (repère~11), il transfère la chaleur des fumées au liquide de refroidissement avant l'évacuation de celles-ci par la conduite de ventilation visible à la figure~\ref{fig:vue-ensemble}.
+
+\paragraph{Circuit d'eau de chauffage.} L'eau du circuit de chauffage est chauffée dans l'échangeur à plaques (repère~12). Dans les conditions de référence du constructeur, elle entre à 60\,°C et sort à 65\,°C, avec un débit de 34,1\,L/min, ce qui correspond à une puissance thermique de 11,7\,kW~\cite{mchp}. Elle est stockée dans une cuve (repère~14) qui fournit l'eau d'entrée de la cogénération et alimente le réseau d'utilisation (repères~15 à~18). La température d'entrée est donc celle de la cuve~: lorsque celle-ci atteint 60\,°C, la cogénération s'arrête (section~\ref{subsec:utilisation}). La cuve et la pompe de circulation de ce circuit ne font pas partie de l'unité~: elles sont fournies sur place (\emph{local procurement})~\cite{mchp}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[height=0.5\textheight]{Images/vue_refroidissement.jpg}
+  \caption{Circuit de refroidissement à eau~: (1)~réservoir de liquide de refroidissement, (2)~ventilateur, (3)~radiateur. Source~: document \emph{Descriptions des éléments de la machine}, fourni dans le cadre du cours~\cite{desc}}
+  \label{fig:vue-refroidissement}
+\end{figure}
+
+\subsection{Circuit hydraulique du laboratoire}
+\label{subsec:hydraulique}
+
+Pour dissiper la chaleur produite pendant l'essai, la cogénération est raccordée à une cuve d'eau et à deux radiateurs, un grand et un petit, reliés par une vanne mélangeuse à trois voies. L'eau chauffée par la cogénération est envoyée en haut de la cuve et descend vers le bas, d'où un circulateur la renvoie à l'échangeur de la cogénération. Les radiateurs jouent le rôle de consommateurs de chaleur~: c'est à leur niveau que la puissance thermique est mesurée à partir des températures d'entrée et de sortie, comme nous le verrons aux chapitres suivants.

@@ -19,9 +19,9 @@ Grâce à cette récupération, on augmente le rendement global de l'installatio
 
 Le fonctionnement de l'installation, représenté à la figure~\ref{fig:schema-general}, se décompose en deux chaînes de conversion issues d'un même moteur.
 
-\paragraph{Chaîne électrique.} Le gaz brûlé dans le moteur (repère~10) produit une énergie mécanique de rotation qui entraîne une génératrice synchrone (repère~9). L'électricité produite passe par l'électronique de commande (repères~7 et~8), puis par la boîte de raccordement et ses protections (repères~4 et~5) avant d'être injectée sur le réseau électrique du bâtiment, où elle alimente les charges (repère~6).
+\paragraph{Chaîne électrique.} Le gaz brûlé dans le moteur (repère~10) produit une énergie mécanique de rotation qui entraîne une génératrice synchrone (repère~9). L'électricité produite passe par l'électronique de commande et l'onduleur, puis par une boîte de raccordement et ses protections avant d'être injectée sur le réseau électrique du bâtiment, où elle alimente les charges.
 
-\paragraph{Chaîne thermique.} Le moteur est refroidi par un fluide caloporteur. La chaleur de ce fluide, additionnée à celle des gaz d'échappement (repère~11), est transférée à l'eau du circuit de chauffage par un échangeur à plaques (repère~12). Cette eau chauffée est envoyée dans la cuve (repère~14), d'où elle alimente le réseau de chauffage ou de production d'eau chaude (repères~16 à~18). Le fluide de refroidissement du moteur, qui n'a pas cédé toute sa chaleur, est évacué par un radiateur assisté d'un ventilateur (repères~13 et~19) afin de revenir au moteur à une température suffisamment basse.
+\paragraph{Chaîne thermique.} Le moteur est refroidi par un fluide caloporteur. La chaleur de ce fluide, additionnée à celle des gaz d'échappement (repère~11), est transférée à l'eau du circuit de chauffage par un échangeur à plaques (repère~12). Cette eau chauffée est envoyée dans la cuve (repère~14), d'où elle alimente le réseau de chauffage ou de production d'eau chaude (repères~16 à~18). Lorsque le fluide de refroidissement dépasse 68\,°C, il passe en plus dans un radiateur assisté d'un ventilateur (repères~13 et~19), qui évacue l'excédent de chaleur afin qu'il revienne au moteur à une température suffisamment basse. En dessous de 55\,°C, il contourne l'échangeur pour que le moteur monte rapidement en température (section~\ref{subsec:prod-chaleur}).
 
 \begin{figure}[htbp]
   \centering
@@ -34,6 +34,6 @@ Le fonctionnement de l'installation, représenté à la figure~\ref{fig:schema-g
 \label{subsec:utilisation}
 
 
-La cogénération est conçue pour fonctionner le plus longtemps possible sans interruption, car c'est à son régime nominal que son rendement est le meilleur. Or elle s'arrête lorsque la température de la cuve atteint 60\,°C. Il est donc préférable de bien connaître les besoins en énergie du réseau à alimenter afin de dimensionner correctement l'installation.
+La cogénération est conçue pour fonctionner le plus longtemps possible sans interruption, car c'est à son régime nominal que son rendement est le meilleur. Or elle s'arrête lorsque la température de la cuve atteint 60\,°C, car c'est la cuve qui fournit l'eau d'entrée de la cogénération, dont la température d'entrée de référence est de 60\,°C~\cite{mchp}. Il est donc préférable de bien connaître les besoins en énergie du réseau à alimenter afin de dimensionner correctement l'installation.
 
 Enfin, même si l'apport en électricité est utile, une cogénération est généralement dimensionnée sur la demande en puissance calorifique du circuit de chauffage. Elle alimente alors un circuit de chauffage qui est, en temps normal, également alimenté par une pompe à chaleur ou une chaudière.

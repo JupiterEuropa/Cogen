@@ -1,10 +1,64 @@
 \section{Appareils de mesure}
 \label{sec:appareils}
 
-% Un sous-chapitre par appareil utilisé.
+Les mesures ont été relevées manuellement toutes les 5~minutes, depuis le démarrage de la cogénération (0~min) jusqu'à la fin de l'essai. Elles combinent quatre types d'appareils~: des sondes de température sur les canalisations, un analyseur de combustion pour les fumées, des compteurs d'énergie (gaz et électricité) et le système d'acquisition propre à la cogénération. Les sections suivantes présentent chacun d'eux et ce qu'ils nous ont permis de mesurer.
 
-\subsection{Appareil 1}
-\label{subsec:appareil-1}
+\subsection{Sondes de température Testo 115i}
+\label{subsec:testo-115i}
 
-\subsection{Appareil 2}
-\label{subsec:appareil-2}
+Les températures de l'eau dans le circuit hydraulique sont mesurées avec six sondes Testo 115i. Il s'agit de sondes à pince~: on la fixe directement sur la canalisation dont on veut connaître la température, sans intervenir sur le circuit. Les sondes sont reliées sans fil à un smartphone, où une application centralise et affiche toutes les mesures. Comme la pince est posée sur la canalisation, c'est la température de la paroi qui est mesurée, ce qui peut différer légèrement de celle de l'eau.
+
+D'après la fiche technique~\cite{testo115i} (reproduite en annexe~\ref{subsec:fiches}), la sonde est de type NTC, mesure de $-40$ à $+150$\,°C avec une résolution de 0,1\,°C et une précision de $\pm1{,}3$\,°C entre $-20$ et $+85$\,°C (±1 digit). Elle s'adapte à des canalisations de 6 à 35\,mm de diamètre et communique en Bluetooth avec l'application \emph{testo Smart}.
+Chaque sonde est identifiée par un numéro. Leur emplacement est repris dans le tableau~\ref{tab:sondes}.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Emplacement des sondes Testo 115i}
+  \label{tab:sondes}
+  \begin{tabular}{lcc}
+    \hline
+    Emplacement & Entrée & Sortie \\
+    \hline
+    Ballon (cuve) & 750 & 011 \\
+    Grand radiateur & 249 & 834 \\
+    Petit radiateur & 094b & 531 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+Les sondes du ballon permettent de suivre l'échauffement de l'eau stockée dans la cuve. Celles des deux radiateurs donnent l'écart de température entre l'entrée et la sortie de chacun, utile pour évaluer la puissance qu'il dissipe.
+
+\subsection{Analyseur de combustion Testo 320}
+\label{subsec:testo-320}
+
+L'analyseur de combustion Testo 320 sert à caractériser les fumées évacuées par l'échappement du moteur. Une sonde de prélèvement est placée dans le conduit d'évacuation. L'appareil fournit les grandeurs suivantes~:
+\begin{itemize}
+  \item la température des fumées, en °C~;
+  \item la température ambiante, en °C~;
+  \item la teneur en dioxygène (O\textsubscript{2}), en \%~;
+  \item la teneur en monoxyde de carbone (CO), en ppm~;
+  \item la teneur en dioxyde de carbone (CO\textsubscript{2}), en \%.
+\end{itemize}
+La teneur en O\textsubscript{2} indique l'excès d'air de la combustion~: à l'arrêt, elle vaut 21\,\%, soit la teneur de l'air ambiant. Le CO est un indicateur de combustion incomplète et un gaz toxique, ce qui justifie sa mesure.
+
+Selon la fiche technique~\cite{testo320} (annexe~\ref{subsec:fiches}), l'appareil mesure l'O\textsubscript{2} de 0 à 21\,\% vol (précision $\pm0{,}2$\,\% vol), le CO de 0 à 5000\,ppm (ou 10\,000\,ppm avec compensation H\textsubscript{2}) et les températures de $-40$ à $+1200$\,°C ($\pm0{,}5$\,°C de 0 à 100\,°C). La teneur en CO\textsubscript{2} n'est pas mesurée directement~: elle est calculée à partir de celle de l'O\textsubscript{2}.
+\subsection{Compteurs de gaz et d'électricité}
+\label{subsec:compteurs}
+
+Deux compteurs permettent de déterminer l'énergie consommée et produite~:
+\begin{itemize}
+  \item le compteur de gaz donne le volume de gaz naturel consommé, en m\textsuperscript{3}~;
+  \item le compteur d'électricité donne l'énergie électrique produite, en kWh.
+\end{itemize}
+Les puissances s'en déduisent par différence entre deux relevés successifs~: la variation d'index sur 5~minutes, multipliée par 12, donne la valeur horaire correspondante (m\textsuperscript{3}/h de gaz, kW électriques).
+
+\subsection{Système d'acquisition de la cogénération}
+\label{subsec:acquisition}
+
+La cogénération dispose de son propre système d'acquisition, constitué d'un ordinateur sur lequel tourne le logiciel \emph{GEC Monitor} du constructeur~\cite{acq}. L'ordinateur est relié à la carte d'affichage de l'unité par une liaison RS232C, avec un câble croisé~\cite{acq}. Le logiciel permet de visualiser en temps réel les données de fonctionnement, de les représenter sous forme de graphiques et de les enregistrer à intervalle réglable (de 1~seconde à 10~minutes), puis de les convertir au format CSV~\cite{acq}.
+
+Dans notre essai, nous en avons extrait deux grandeurs, relevées à la même cadence de 5~minutes que les autres mesures~:
+\begin{itemize}
+  \item la puissance thermique récupérée (\emph{Heat power}), exprimée en MJ/h~: divisée par 3,6, elle donne la puissance en kW~;
+  \item la puissance électrique de sortie (\emph{W out}), exprimée en W.
+\end{itemize}
